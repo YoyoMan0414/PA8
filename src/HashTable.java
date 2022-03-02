@@ -20,6 +20,12 @@ public class HashTable implements IHashTable {
     private int size; // number of elements stored
     private String[] table; // data table
 
+    //2.2 added instance variables
+    private int rehash;
+    private int collision;
+    private double loadF;
+    private String log;
+
     public HashTable() {
         this(15);
     }
@@ -30,50 +36,121 @@ public class HashTable implements IHashTable {
         }
         size = 0;
         table = new String[capacity];
+        //initialize added
+        rehash = 0;
+        collision = 0;
+        loadF = 0;
+        log = "";
     }
 
     @Override
     public boolean insert(String value) {
-
-        return false;
+        if (value == null) {
+            throw new NullPointerException();
+        }
+        if (lookup(value)) {
+            return false;
+        } else {
+            loadF = (double)size/table.length;
+            if (loadF > 0.55) {
+                rehash();
+            }
+            int index = hashString(value);
+            int probed = 0;
+            while (probed < table.length) {
+                if (table[index] == null || table[index] == BRIDGE) {
+                    table[index] = value;
+                    size++;
+                    return true;
+                }
+                index = (index + 1) % table.length;
+                probed++;
+                collision++;
+            }
+            return false;
+        }
     }
 
     @Override
     public boolean delete(String value) {
-        /* TODO */
+        if (value == null) {
+            throw new NullPointerException();
+        }
+        if (!lookup(value)) {
+            return false;
+        } else {
+            int index = hashString(value);
+            int probed = 0;
+            while (table[index] != null && probed < table.length) {
+                if (table[index].equals(value)) {
+                    table[index] = BRIDGE;
+                    size--;
+                    return true;
+                }
+                index = (index + 1) % table.length;
+                probed++;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean lookup(String value) {
-        /* TODO */
+        if (value == null) {
+            throw new NullPointerException();
+        }
+        int index = hashString(value);
+        int probed = 0;
+        while (table[index] != null && probed < table.length) {
+            if (table[index].equals(value)) {
+                return true;
+            }
+            index = (index + 1) % table.length;
+            probed++;
+        }
         return false;
     }
 
     @Override
     public int size() {
-        /* TODO */
-        return -1;
+        return size;
     }
 
     @Override
     public int capacity() {
-        /* TODO */
-        return -1;
+        return table.length;
     }
 
     public String getStatsLog() {
-        /* TODO */
-        return null;
+        return log;
     }
 
     private void rehash() {
-        /* TODO */
+        int len = table.length;
+        String[] temp = table;
+        String[] re = new String[2 * len];
+
+        rehash++;
+        log += String.format("Before rehash #%1$d: load factor %0.2f, %2$d collision(s).\n", rehash, loadF, collision);
+        collision = 0;
+
+        size = 0;
+        table = re;
+        for (int i = 0; i < len; i++) {
+            if (temp[i] != null && temp[i] != BRIDGE) {
+                insert(temp[i]);
+            }
+        }
     }
 
     private int hashString(String value) {
-        /* TODO */
-        return -1;
+        int hashValue = 0;
+        for (int i = 0; i < value.length(); i++) {
+            int leftShiftedValue = hashValue << 5;
+            int rightShiftedValue = hashValue >>> 27;
+            hashValue = (leftShiftedValue | rightShiftedValue) ^ value.charAt(i);
+        }
+        return Math.abs(hashValue % table.length);
     }
 
     /**

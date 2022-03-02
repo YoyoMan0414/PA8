@@ -1,13 +1,13 @@
 /*
- * NAME: TODO
- * PID: TODO
+ * NAME: Man Jiang
+ * PID: A16147449
  */
 
 /**
  * TODO
  *
- * @author TODO
- * @since TODO
+ * @author Man Jiang
+ * @since 03/01/2022
  */
 public class BloomFilterJunior {
 
@@ -20,15 +20,36 @@ public class BloomFilterJunior {
     private boolean[] table;
 
     public BloomFilterJunior(int capacity) {
-        /* TODO */
+        if (capacity < MIN_INIT_CAPACITY) {
+            throw new IllegalArgumentException();
+        }
+        table = new boolean[capacity];
     }
 
     public void insert(String value) {
-        /* TODO */
+        if (value == null) {
+            throw new NullPointerException();
+        }
+        int key1 = hashBase256(value);
+        int key2 = hashCRC(value);
+        int key3 = hashHorners(value);
+
+        table[key1] = true;
+        table[key2] = true;
+        table[key3] = true;
     }
 
     public boolean lookup(String value) {
-        /* TODO */
+        if (value == null) {
+            throw new NullPointerException();
+        }
+        int key1 = hashBase256(value);
+        int key2 = hashCRC(value);
+        int key3 = hashHorners(value);
+
+        if (table[key1] == true && table[key2] == true && table[key3] == true) {
+            return true;
+        }
         return false;
     }
 
@@ -53,8 +74,13 @@ public class BloomFilterJunior {
      * @return hash value
      */
     private int hashCRC(String value) {
-        /* TODO: Copy and paste from your HashTable */
-        return -1;
+        int hashValue = 0;
+        for (int i = 0; i < value.length(); i++) {
+            int leftShiftedValue = hashValue << 5;
+            int rightShiftedValue = hashValue >>> HORNERS_BASE;
+            hashValue = (leftShiftedValue | rightShiftedValue) ^ value.charAt(i);
+        }
+        return Math.abs(hashValue % table.length);
     }
 
     /**
