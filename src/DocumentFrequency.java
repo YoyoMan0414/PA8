@@ -25,7 +25,7 @@ public class DocumentFrequency {
             String lines[] = scanner.nextLine().split(" ");
             HashTable table = new HashTable();
             for (int i = 0; i < lines.length; i++) {
-                table.insert(lines[i]);
+                table.insert(lines[i].toLowerCase());
             }
             tables.add(table);
         }
@@ -39,7 +39,7 @@ public class DocumentFrequency {
     public int query(String word) {
         int times = 0;
         for (int i = 0; i < numDocuments(); i++) {
-            if (tables.get(i).lookup(word)) {
+            if (tables.get(i).lookup(word.toLowerCase())) {
                 times++;
             }
         }
