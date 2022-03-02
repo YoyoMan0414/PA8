@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="776a3cf9-0439-469e-9b81-dcd83c47cef4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/DocumentFrequencyTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PA8.iml" beforeDir="false" afterPath="$PROJECT_DIR$/PA8.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DocumentFrequency.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DocumentFrequency.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/HashTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HashTable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/HashTableTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HashTableTest.java" afterDir="false" />
     </list>
@@ -51,7 +48,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.DocumentFrequencyTest">
+  <component name="RunManager" selected="JUnit.HashTableTest">
     <configuration name="DocumentFrequencyTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PA8" />
       <option name="PACKAGE_NAME" value="" />
@@ -102,9 +99,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.HashTableTest" />
         <item itemvalue="JUnit.DocumentFrequencyTest" />
         <item itemvalue="JUnit.DocumentFrequencyTest.test" />
-        <item itemvalue="JUnit.HashTableTest" />
         <item itemvalue="JUnit.HashTableTest.testLook2" />
         <item itemvalue="JUnit.HashTableTest.testLook" />
       </list>

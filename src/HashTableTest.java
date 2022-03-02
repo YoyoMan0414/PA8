@@ -45,11 +45,23 @@ public class HashTableTest {
         test1.insert("now ready");
         assertEquals(10, test1.size());
         assertEquals(30, test1.capacity());
-        assertEquals("Before rehash #1: load factor 0.60, 7 collision(s).\n", test1.getStatsLog());
+        assertEquals("Before rehash # 1: load factor 0.60, 7 collision(s).\n", test1.getStatsLog());
         expected = new String[]{"DSC190", "rehash ready", "HDSI", null, null, null, "FALL2022", "abc", null, null, "now ready",
                 null, null, null, null, null, null, null, "UCSD", null, null, "Grade", null, null, "Midterm", null,
                 null, null, null, "30%"};
         assertEquals(Arrays.toString(expected), test1.toString());
+        test1.insert("Calculus");
+        test1.insert("Math");
+        test1.insert("English");
+        test1.insert("Literature");
+        test1.insert("Econ"); //0.5
+        test1.insert("Public Health"); //0.53
+        test1.insert("Linear Algebra");
+        assertEquals(30, test1.capacity());
+        test1.insert("Bio");
+        assertEquals(60, test1.capacity());
+        assertEquals("Before rehash # 1: load factor 0.60, 7 collision(s).\n" +
+                "Before rehash # 2: load factor 0.57, 9 collision(s).\n", test1.getStatsLog());
 
         test2.insert("Calculus");
         test2.insert("Math");
@@ -72,11 +84,13 @@ public class HashTableTest {
         test2.insert("Biostats"); //0.55 LF
         assertEquals("", test2.getStatsLog());
         test2.insert("Environment"); //time to rehash
-        assertEquals("Before rehash #1: load factor 0.60, 6 collision(s).\n", test2.getStatsLog());
+        assertEquals("Before rehash # 1: load factor 0.60, 6 collision(s).\n", test2.getStatsLog());
         assertEquals(true, test2.delete("Biostats"));
         assertEquals(true, test2.delete("CS"));
         assertEquals(11, test2.size());
         assertEquals(40, test2.capacity());
+        test2.insert("Bio");
+        assertEquals(11, test2.size());
     }
 
     @Test(expected = IllegalArgumentException.class)

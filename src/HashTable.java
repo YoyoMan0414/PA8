@@ -131,7 +131,7 @@ public class HashTable implements IHashTable {
         String[] re = new String[2 * len];
 
         rehash++;
-        log += String.format("Before rehash #%d: load factor %.2f, %d collision(s).\n", rehash, loadF, collision);
+        log += String.format("Before rehash # %d: load factor %.2f, %d collision(s).\n", rehash, loadF, collision);
         collision = 0;
 
         size = 0;
